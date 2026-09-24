@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP CÀY THUÊ BLOX FRUIT UY TÍN HÀNG ĐẦU</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00f2fe',
+                            purple: '#7928ca',
+                            pink: '#ff0080',
+                            darkBg: '#0b0f19',
+                            cardBg: '#131b2e',
+                            cardBorder: '#1f2d4d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+        .neon-glow-cyan { box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        .text-gradient { background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-gradient-btn { background: linear-gradient(135deg, #7928ca 0%, #4facfe 100%); }
+        .bg-gradient-btn:hover { background: linear-gradient(135deg, #6b21a8 0%, #00f2fe 100%); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-cyan selection:text-black">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-brand-darkBg/90 backdrop-blur-md border-b border-brand-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchSection('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple to-brand-cyan p-0.5 flex items-center justify-center neon-glow-cyan">
+                        <div class="w-full h-full bg-brand-darkBg rounded-[10px] flex items-center justify-center">
+                            <i class="fa-solid fa-gamepad text-brand-cyan text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-xl sm:text-2xl font-extrabold tracking-wider text-white">
+                        BLOX<span class="text-gradient">SHOP</span>
+                    </span>
+                </div>
+
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+                    <button onclick="switchSection('home')" class="hover:text-brand-cyan transition-colors">Trang Chủ</button>
+                    <button onclick="switchSection('services')" class="hover:text-brand-cyan transition-colors">Cày Thuê</button>
+                    <button onclick="openTopUpModal()" class="hover:text-brand-cyan transition-colors">Nạp Tiền</button>
+                    <button onclick="switchSection('history')" class="hover:text-brand-cyan transition-colors">Lịch Sử Đơn</button>
+                    <button onclick="openAdminModal()" class="px-3 py-1.5 rounded-lg bg-red-600/20 border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white transition-all text-xs font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-shield"></i> ADMIN DUYỆT NẠP
+                    </button>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="openCartModal()" class="relative p-2.5 rounded-xl bg-brand-cardBg border border-brand-cardBorder hover:border-brand-cyan transition-all">
+                        <i class="fa-solid fa-cart-shopping text-brand-cyan text-lg"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-brand-pink text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <div id="authArea">
+                        <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-bold rounded-xl border border-brand-cyan text-brand-cyan hover:bg-brand-cyan/10 transition-all">
+                            Đăng Nhập
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div id="notificationArea"></div>
+
+        <!-- HERO BANNER SECTION -->
+        <section id="heroSection" class="relative rounded-3xl bg-brand-cardBg border border-brand-cardBorder p-8 sm:p-12 mb-12 overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-brand-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -top-20 w-80 h-80 bg-brand-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-2xl">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-purple/20 border border-brand-purple/40 text-brand-cyan text-xs font-semibold mb-4">
+                    <i class="fa-solid fa-fire text-brand-pink"></i> HỆ THỐNG CÀY THUÊ UY TÍN #1 VIỆT NAM
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4">
+                    DỊCH VỤ <span class="text-gradient">CÀY THUÊ</span> BLOX FRUIT
+                </h1>
+                <p class="text-gray-400 text-sm sm:text-base mb-8 leading-relaxed">
+                    Cung cấp đầy đủ dịch vụ Võ V2, Kiếm Legend, Up Tộc V4/Draco, Farm Beli/Fragment, Đảo Rồng & Nguyên liệu Leviathan. An toàn 100%, bảo mật tuyệt đối!
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="switchSection('services')" class="px-6 py-3.5 rounded-xl bg-gradient-btn text-white font-bold text-sm tracking-wide neon-glow-cyan transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-rocket"></i> ĐẶT CÀY NGAY
+                    </button>
+                    <button onclick="openTopUpModal()" class="px-6 py-3.5 rounded-xl bg-brand-cardBg border border-brand-cardBorder text-white font-bold text-sm hover:border-brand-cyan transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-wallet text-brand-cyan"></i> NẠP TIỀN TÀI KHOẢN
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="servicesSection" class="mb-12">
+            <!-- Header Tên Danh Mục Gộp -->
+            <div class="flex items-center justify-between border-b border-brand-cardBorder pb-4 mb-8">
+                <h2 class="text-2xl font-extrabold text-white flex items-center gap-3">
+                    <i class="fa-solid fa-crosshairs text-brand-cyan"></i> TẤT CẢ DỊCH VỤ CÀY THUÊ
+                </h2>
+                <span class="text-xs font-bold text-gray-400 bg-brand-cardBg border border-brand-cardBorder px-3 py-1.5 rounded-lg">
+                    Tổng: 39 Dịch Vụ
+                </span>
+            </div>
+
+            <!-- Service Grid Cards -->
+            <div id="servicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cards render dynamically via JavaScript -->
+            </div>
+        </section>
+
+        <!-- HISTORY SECTION -->
+        <section id="historySection" class="hidden mb-12 space-y-8">
+            <div>
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-receipt text-brand-cyan"></i> LỊCH SỬ ĐƠN CÀY THUÊ
+                </h2>
+                <div class="bg-brand-cardBg border border-brand-cardBorder rounded-2xl p-4 sm:p-6 overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-300">
+                        <thead class="text-xs uppercase bg-brand-darkBg/60 text-gray-400 border-b border-brand-cardBorder">
+                            <tr>
+                                <th class="p-4">Mã Đơn</th>
+                                <th class="p-4">Dịch Vụ</th>
+                                <th class="p-4">Tài Khoản Roblox</th>
+                                <th class="p-4">Tổng Tiền</th>
+                                <th class="p-4">Thời Gian</th>
+                                <th class="p-4">Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr><td colspan="6" class="p-8 text-center text-gray-500">Chưa có đơn hàng nào.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-brand-pink"></i> LỊCH SỬ NẠP TIỀN
+                </h2>
+                <div class="bg-brand-cardBg border border-brand-cardBorder rounded-2xl p-4 sm:p-6 overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-300">
+                        <thead class="text-xs uppercase bg-brand-darkBg/60 text-gray-400 border-b border-brand-cardBorder">
+                            <tr>
+                                <th class="p-4">Mã Nạp</th>
+                                <th class="p-4">Hình Thức</th>
+                                <th class="p-4">Số Tiền</th>
+                                <th class="p-4">Chi Tiết / Mã Thẻ</th>
+                                <th class="p-4">Thời Gian</th>
+                                <th class="p-4">Trạng Thái Xử Lý</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topupHistoryTableBody">
+                            <tr><td colspan="6" class="p-8 text-center text-gray-500">Chưa có yêu cầu nạp tiền nào.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-darkBg border-t border-brand-cardBorder py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>© 2026 BLOXSHOP - Hệ thống cày thuê game Blox Fruit chuyên nghiệp. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL AUTHENTICATION -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-brand-cardBg border border-brand-cardBorder rounded-2xl w-full max-w-md p-6 relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="flex border-b border-brand-cardBorder mb-6">
+                <button id="loginTabBtn" onclick="toggleAuthTab('login')" class="flex-1 py-3 font-bold text-sm border-b-2 border-brand-cyan text-brand-cyan">Đăng Nhập</button>
+                <button id="registerTabBtn" onclick="toggleAuthTab('register')" class="flex-1 py-3 font-bold text-sm text-gray-400 hover:text-white">Đăng Ký</button>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Tên Tài Khoản Web</label>
+                    <input type="text" id="loginUser" required placeholder="Nhập tên đăng nhập..." class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Mật Khẩu</label>
+                    <input type="password" id="loginPass" required placeholder="Nhập mật khẩu..." class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-btn text-white font-bold rounded-xl text-sm neon-glow-cyan">ĐĂNG NHẬP NGAY</button>
+            </form>
+            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Tên Tài Khoản Web</label>
+                    <input type="text" id="regUser" required placeholder="Tên tài khoản mới..." class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Mật Khẩu</label>
+                    <input type="password" id="regPass" required placeholder="Mật khẩu..." class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <button type="submit" class="w-full py-3 bg-gradient-btn text-white font-bold rounded-xl text-sm neon-glow-cyan">TẠO TÀI KHOẢN MỚI</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CART -->
+    <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-brand-cardBg border border-brand-cardBorder rounded-2xl w-full max-w-lg p-6 relative">
+            <button onclick="closeCartModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping text-brand-cyan"></i> GIỎ HÀNG CÀY THUÊ
+            </h3>
+            <div id="cartItemsList" class="max-h-52 overflow-y-auto space-y-3 mb-4 pr-2"></div>
+            <div class="bg-brand-darkBg p-4 rounded-xl border border-brand-cardBorder space-y-3 mb-4">
+                <h4 class="text-xs font-bold text-brand-cyan uppercase">Thông tin nick Roblox để cày:</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] text-gray-400 mb-1">Tài khoản Roblox *</label>
+                        <input type="text" id="robloxUser" placeholder="Username Roblox" class="w-full bg-brand-cardBg border border-brand-cardBorder rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-cyan">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-gray-400 mb-1">Mật khẩu Roblox *</label>
+                        <input type="password" id="robloxPass" placeholder="Password Roblox" class="w-full bg-brand-cardBg border border-brand-cardBorder rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-cyan">
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-brand-cardBorder pt-4 space-y-3">
+                <div class="flex justify-between text-sm text-gray-400">
+                    <span>Tổng tiền dịch vụ:</span>
+                    <span id="cartTotalPrice" class="font-bold text-brand-cyan text-lg">0 VNĐ</span>
+                </div>
+                <button onclick="checkoutCart()" class="w-full py-3.5 bg-gradient-btn text-white font-bold rounded-xl text-sm neon-glow-cyan hover:opacity-95 transition-all">
+                    XÁC NHẬN THANH TOÁN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TOP UP -->
+    <div id="topUpModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-brand-cardBg border border-brand-cardBorder rounded-2xl w-full max-w-md p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeTopUpModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-wallet text-brand-cyan"></i> NẠP TIỀN VÀO TÀI KHOẢN</h3>
+            <div class="flex border-b border-brand-cardBorder mb-5">
+                <button id="bankTopUpTab" onclick="switchTopUpMethod('bank')" class="flex-1 py-2.5 font-bold text-xs border-b-2 border-brand-cyan text-brand-cyan flex items-center justify-center gap-1.5"><i class="fa-solid fa-qrcode"></i> CK Ngân Hàng / QR</button>
+                <button id="cardTopUpTab" onclick="switchTopUpMethod('card')" class="flex-1 py-2.5 font-bold text-xs text-gray-400 hover:text-white flex items-center justify-center gap-1.5"><i class="fa-solid fa-credit-card"></i> Nạp Thẻ Cào</button>
+            </div>
+
+            <!-- BANK TOPUP -->
+            <div id="bankTopUpArea" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Số tiền muốn nạp (VNĐ)</label>
+                    <input type="number" id="topupAmount" value="50000" min="10000" step="10000" oninput="updateQRCode()" class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <div class="bg-white/5 border border-brand-cardBorder rounded-xl p-4 text-center relative">
+                    <div class="relative w-44 h-44 mx-auto mb-3 bg-white p-2 rounded-lg flex items-center justify-center">
+                        <img id="qrCodeImg" src="" alt="Mã VietQR" class="max-w-full max-h-full object-contain">
+                        <div id="qrLoading" class="absolute inset-0 bg-brand-darkBg/80 flex items-center justify-center text-xs text-brand-cyan font-bold hidden"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang tạo mã...</div>
+                    </div>
+                    <div class="space-y-2 text-left bg-brand-darkBg/60 p-3 rounded-lg border border-brand-cardBorder text-xs">
+                        <div class="flex justify-between items-center"><span class="text-gray-400">Ngân hàng:</span><span id="bankNameDisplay" class="font-bold text-white">MB Bank</span></div>
+                        <div class="flex justify-between items-center"><span class="text-gray-400">Số tài khoản:</span><div class="flex items-center gap-1"><span id="bankAccDisplay" class="font-bold text-brand-cyan">0123456789</span><button onclick="copyText('bankAccDisplay')" class="text-gray-400 hover:text-white px-1"><i class="fa-solid fa-copy"></i></button></div></div>
+                        <div class="flex justify-between items-center"><span class="text-gray-400">Chủ tài khoản:</span><span id="bankOwnerDisplay" class="font-bold text-white">SHOP BLOX FRUIT</span></div>
+                        <div class="flex justify-between items-center border-t border-brand-cardBorder/50 pt-2"><span class="text-gray-400">Nội dung chuyển:</span><div class="flex items-center gap-1"><span id="qrMemo" class="font-extrabold text-brand-pink">NAP SHOP</span><button onclick="copyText('qrMemo')" class="text-gray-400 hover:text-white px-1"><i class="fa-solid fa-copy"></i></button></div></div>
+                    </div>
+                </div>
+                <button onclick="confirmTopUp()" class="w-full py-3 bg-gradient-btn text-white font-bold rounded-xl text-sm neon-glow-cyan hover:opacity-90 transition-all flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> GỬI YÊU CẦU DUYỆT NẠP</button>
+            </div>
+
+            <!-- CARD TOPUP -->
+            <div id="cardTopUpArea" class="space-y-3 hidden">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Loại thẻ cào *</label>
+                    <select id="cardType" class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-cyan">
+                        <option value="VIETTEL">Viettel</option><option value="VINAPHONE">Vinaphone</option><option value="MOBIFONE">Mobifone</option><option value="ZING">Thẻ Zing</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Mệnh giá thẻ *</label>
+                    <select id="cardValue" class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-brand-cyan">
+                        <option value="10000">10.000 VNĐ</option><option value="20000">20.000 VNĐ</option><option value="50000" selected>50.000 VNĐ</option><option value="100000">100.000 VNĐ</option><option value="200000">200.000 VNĐ</option><option value="500000">500.000 VNĐ</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Mã Thẻ (PIN) *</label>
+                    <input type="text" id="cardPin" placeholder="Nhập mã thẻ..." class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Mã Số Seri *</label>
+                    <input type="text" id="cardSeri" placeholder="Nhập số seri..." class="w-full bg-brand-darkBg border border-brand-cardBorder rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-brand-cyan">
+                </div>
+                <button onclick="confirmCardTopUp()" class="w-full py-3 bg-gradient-btn text-white font-bold rounded-xl text-sm neon-glow-cyan hover:opacity-90 transition-all flex items-center justify-center gap-2 mt-2"><i class="fa-solid fa-sd-card"></i> GỬI THẺ CÀO BẢO MẬT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN -->
+    <div id="adminModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-brand-cardBg border border-red-500/50 rounded-2xl w-full max-w-3xl p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold text-red-400 mb-2 flex items-center gap-2"><i class="fa-solid fa-user-shield"></i> ADMIN - DUYỆT NẠP TIỀN CHO KHÁCH</h3>
+            <div class="flex border-b border-brand-cardBorder mb-4">
+                <button id="adminBankTab" onclick="switchAdminTab('bank')" class="py-2 px-4 font-bold text-xs border-b-2 border-red-500 text-red-400">Ngân Hàng Duyệt Nạp</button>
+                <button id="adminCardTab" onclick="switchAdminTab('card')" class="py-2 px-4 font-bold text-xs text-gray-400 hover:text-white">Thẻ Cào Chờ Duyệt</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-gray-300">
+                    <thead class="uppercase bg-brand-darkBg text-gray-400 border-b border-brand-cardBorder">
+                        <tr id="adminTableHeader"></tr>
+                    </thead>
+                    <tbody id="adminTopupTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const BANK_CONFIG = { BANK_ID: 'MB', ACCOUNT_NO: '0123456789', ACCOUNT_NAME: 'SHOP BLOX FRUIT' };
+
+        // DÙNG DẠNG CHUNG "CÀY THUÊ" CHO TẤT CẢ
+        const servicesData = [
+            { id: 1, category: 'CÀY THUÊ', title: '🥊 Godhuman', price: 10000, desc: 'Cày phong cách võ Godhuman mạnh mẽ.' },
+            { id: 2, category: 'CÀY THUÊ', title: '🔥 Võ V2 (Bất Kỳ)', price: 10000, desc: 'Lấy các loại Võ V2 theo yêu cầu.' },
+            { id: 3, category: 'CÀY THUÊ', title: '🩸 Sanguine Art', price: 10000, desc: 'Cày võ Sanguine Art bá đạo.', req: 'Cần có Tim Leviathan' },
+            { id: 4, category: 'CÀY THUÊ', title: '⚔️ Cursed Dual Katana (CDK)', price: 15000, desc: 'Sở hữu song kiếm huyền thoại CDK.' },
+            { id: 5, category: 'CÀY THUÊ', title: '🗡️ Tushita', price: 5000, desc: 'Lấy kiếm Tushita chuẩn chỉ.' },
+            { id: 6, category: 'CÀY THUÊ', title: '🗡️ Yama', price: 5000, desc: 'Lấy kiếm Yama thần tốc.' },
+            { id: 7, category: 'CÀY THUÊ', title: '🗡️ True Triple Katana (TTK)', price: 20000, desc: 'Sở hữu tam kiếm TTK đỉnh cao.' },
+            { id: 8, category: 'CÀY THUÊ', title: '🗡️ Wando', price: 5000, desc: 'Sở hữu kiếm Wando.' },
+            { id: 9, category: 'CÀY THUÊ', title: '🗡️ Shisui', price: 5000, desc: 'Sở hữu kiếm Shisui.' },
+            { id: 10, category: 'CÀY THUÊ', title: '🗡️ Oroshi', price: 5000, desc: 'Sở hữu kiếm Oroshi.' },
+            { id: 11, category: 'CÀY THUÊ', title: '⚓ Shark Anchor', price: 10000, desc: 'Lấy Mỏ Neo Cá Mập.' },
+            { id: 12, category: 'CÀY THUÊ', title: '🦊 Fox Lamp', price: 10000, desc: 'Lấy Đèn Cáo Kitsune.' },
+            { id: 13, category: 'CÀY THUÊ', title: '💀 Lưỡi Hái Hồn (Soul Guitar / Scythe)', price: 10000, desc: 'Lấy Lưỡi Hái hắc ám.' },
+            { id: 14, category: 'CÀY THUÊ', title: '🐉 Kiếm Rồng', price: 10000, desc: 'Sở hữu Kiếm Rồng uy lực.', req: 'Phải có Đai & Trứng Rồng' },
+            { id: 15, category: 'CÀY THUÊ', title: '🔫 Súng Rồng', price: 10000, desc: 'Sở hữu Súng Rồng.', req: 'Phải có Đai & Trứng Rồng' },
+            { id: 16, category: 'CÀY THUÊ', title: '🎗️ Full Đai', price: 20000, desc: 'Lấy trọn bộ các loại đai trang bị.' },
+            { id: 17, category: 'CÀY THUÊ', title: '🦊 Full Item Đảo Kitsune', price: 10000, desc: 'Cày full toàn bộ vật phẩm tại Đảo Cáo Kitsune.' },
+            { id: 18, category: 'CÀY THUÊ', title: '🐉 Full Item Đảo Rồng', price: 10000, desc: 'Cày full toàn bộ vật phẩm tại Đảo Rồng.' },
+            { id: 19, category: 'CÀY THUÊ', title: '⚙️ Gạt Cần Tộc V4', price: 5000, desc: 'Hỗ trợ gạt cần mở cửa V4.', req: 'Cần có Mảnh Gương & Mũ Rip Indra' },
+            { id: 20, category: 'CÀY THUÊ', title: '🪞 Mảnh Gương (Fractal)', price: 5000, desc: 'Cày Mảnh Gương từ Dough King.' },
+            { id: 21, category: 'CÀY THUÊ', title: '👑 Mũ Rip Indra', price: 5000, desc: 'Lấy Mũ Valkyrie Helm từ Rip Indra.' },
+            { id: 22, category: 'CÀY THUÊ', title: '🤖 Lấy Tộc Cyborg', price: 10000, desc: 'Mở khóa Tộc Cyborg robot.' },
+            { id: 23, category: 'CÀY THUÊ', title: '👻 Lấy Tộc Ghoul', price: 10000, desc: 'Mở khóa Tộc Ghoul quỷ hút máu.' },
+            { id: 24, category: 'CÀY THUÊ', title: '⚡ Up Full Gear Tộc V4', price: 20000, desc: 'Úp max bánh răng Tộc V4.' },
+            { id: 25, category: 'CÀY THUÊ', title: '🐉 Get V2 - V3 Draco', price: 10000, desc: 'Nâng cấp Tộc Draco lên V2 và V3.' },
+            { id: 26, category: 'CÀY THUÊ', title: '🐉 Up Full Gear Draco', price: 20000, desc: 'Cày max kịch khung Gear Tộc Draco.' },
+            { id: 27, category: 'CÀY THUÊ', title: '💰 1.000.000 Beli', price: 500, desc: 'Farm 1 Triệu tiền Beli nhanh gọn.' },
+            { id: 28, category: 'CÀY THUÊ', title: '🔮 1.000 Fragment (F)', price: 500, desc: 'Farm 1.000 Điểm Tím Fragment.' },
+            { id: 29, category: 'CÀY THUÊ', title: '🌾 Level 1 -> Max Level', price: 20000, desc: 'Cày từ Level 1 đến Level Max thần tốc.' },
+            { id: 30, category: 'CÀY THUÊ', title: '🌾 Level 1 -> 700 (Sea 1)', price: 5000, desc: 'Cày max Sea 1 để qua Sea 2.' },
+            { id: 31, category: 'CÀY THUÊ', title: '🌾 Level 700 -> 1500 (Sea 2)', price: 5000, desc: 'Cày max Sea 2 để qua Sea 3.' },
+            { id: 32, category: 'CÀY THUÊ', title: '🌾 Level 1500 -> Max Level', price: 10000, desc: 'Cày max Sea 3 kịch khung.' },
+            { id: 33, category: 'CÀY THUÊ', title: '🌾 Cày Lẻ 100 Level', price: 2000, desc: 'Cày thêm 100 level theo yêu cầu.' },
+            { id: 34, category: 'CÀY THUÊ', title: '🏝️ 1 Đảo Rồng', price: 5000, desc: 'Săn 1 Đảo Rồng.' },
+            { id: 35, category: 'CÀY THUÊ', title: '🐍 Leviathan Hydra', price: 20000, desc: 'Săn con trùm Leviathan Hydra.' },
+            { id: 36, category: 'CÀY THUÊ', title: '🔫 Súng Rồng Special', price: 15000, desc: 'Cày Súng Rồng chuyên nghiệp.', req: 'Phải có Trứng Rồng' },
+            { id: 37, category: 'CÀY THUÊ', title: '🗡️ Kiếm Rồng Special', price: 10000, desc: 'Cày Kiếm Rồng chuyên nghiệp.', req: 'Phải có Trứng Rồng' },
+            { id: 38, category: 'CÀY THUÊ', title: '🫀 Tim Leviathan', price: 20000, desc: 'Săn lấy Quả Tim Leviathan hiếm.' },
+            { id: 39, category: 'CÀY THUÊ', title: '📦 Farm 99 Nguyên Liệu Bất Kỳ', price: 15000, desc: 'Farm 99 nguyên liệu rớt từ quái theo chỉ định.' }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('blox_user')) || null;
+        let cart = JSON.parse(localStorage.getItem('blox_cart')) || [];
+        let orders = JSON.parse(localStorage.getItem('blox_orders')) || [];
+        let topUpRequests = JSON.parse(localStorage.getItem('blox_topup_requests')) || [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderServices();
+            updateCartUI();
+            updateUserUI();
+            initBankInfoUI();
+        });
+
+        function initBankInfoUI() {
+            document.getElementById('bankNameDisplay').innerText = BANK_CONFIG.BANK_ID;
+            document.getElementById('bankAccDisplay').innerText = BANK_CONFIG.ACCOUNT_NO;
+            document.getElementById('bankOwnerDisplay').innerText = BANK_CONFIG.ACCOUNT_NAME;
+        }
+
+        function renderServices() {
+            const container = document.getElementById('servicesGrid');
+            container.innerHTML = servicesData.map(s => `
+                <div class="bg-brand-cardBg border border-brand-cardBorder rounded-2xl p-5 flex flex-col justify-between hover:border-brand-cyan transition-all duration-300">
+                    <div>
+                        <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-purple/30 text-brand-cyan border border-brand-purple/40 mb-2 inline-block">${s.category}</span>
+                        <h3 class="text-base font-bold text-white mb-2">${s.title}</h3>
+                        <p class="text-gray-400 text-xs mb-3 leading-relaxed">${s.desc}</p>
+                        ${s.req ? `<div class="text-[11px] font-bold text-yellow-400 bg-yellow-500/10 border border-yellow-500/30 p-2 rounded-lg mb-4"><i class="fa-solid fa-triangle-exclamation mr-1"></i> ${s.req}</div>` : ''}
+                    </div>
+                    <div>
+                        <div class="text-brand-cyan font-extrabold text-lg mb-3">${s.price.toLocaleString('vi-VN')} VNĐ</div>
+                        <button onclick="addToCart(${s.id})" class="w-full py-2.5 bg-brand-darkBg border border-brand-cardBorder hover:border-brand-cyan text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus text-brand-cyan"></i> Thêm Vào Giỏ
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(serviceId) {
+            const item = servicesData.find(s => s.id === serviceId);
+            if (!item) return;
+            const existing = cart.find(c => c.id === serviceId);
+            if (existing) { existing.qty += 1; } else { cart.push({ ...item, qty: 1 }); }
+            saveCart();
+            showNotification('Đã thêm dịch vụ vào giỏ hàng!', 'success');
+        }
+
+        function removeFromCart(serviceId) {
+            cart = cart.filter(c => c.id !== serviceId);
+            saveCart();
+        }
+
+        function saveCart() {
+            localStorage.setItem('blox_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').innerText = count;
+            const list = document.getElementById('cartItemsList');
+            if (cart.length === 0) {
+                list.innerHTML = `<p class="text-center text-gray-500 text-sm py-4">Giỏ hàng đang trống.</p>`;
+            } else {
+                list.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between bg-brand-darkBg p-3 rounded-xl border border-brand-cardBorder">
+                        <div>
+                            <p class="text-xs font-bold text-white">${item.title}</p>
+                            <p class="text-xs text-brand-cyan font-semibold">${item.price.toLocaleString('vi-VN')} VNĐ x ${item.qty}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-brand-pink text-sm"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `).join('');
+            }
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cartTotalPrice').innerText = `${total.toLocaleString('vi-VN')} VNĐ`;
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUser').value.trim();
+            const pass = document.getElementById('regPass').value.trim();
+            if (!username || !pass) return;
+            let usersList = JSON.parse(localStorage.getItem('blox_user_db')) || {};
+            if (usersList[username]) { showNotification('Tài khoản đã tồn tại!', 'error'); return; }
+            currentUser = { username: username, password: pass, balance: 0 };
+            usersList[username] = currentUser;
+            localStorage.setItem('blox_user_db', JSON.stringify(usersList));
+            localStorage.setItem('blox_user', JSON.stringify(currentUser));
+            updateUserUI(); closeAuthModal();
+            showNotification(`Tạo tài khoản thành công!`, 'success');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            if (!username || !pass) return;
+            let usersList = JSON.parse(localStorage.getItem('blox_user_db')) || {};
+            if (!usersList[username] || usersList[username].password !== pass) {
+                showNotification('Tài khoản hoặc mật khẩu không chính xác!', 'error'); return;
+            }
+            currentUser = usersList[username];
+            localStorage.setItem('blox_user', JSON.stringify(currentUser));
+            updateUserUI(); closeAuthModal();
+            showNotification(`Đăng nhập thành công! Chào ${username}.`, 'success');
+        }
+
+        function logout() {
+            currentUser = null; localStorage.removeItem('blox_user');
+            updateUserUI(); switchSection('home');
+            showNotification('Đã đăng xuất tài khoản.', 'info');
+        }
+
+        function updateUserUI() {
+            const authArea = document.getElementById('authArea');
+            if (currentUser) {
+                authArea.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="text-right">
+                            <p class="text-xs font-bold text-white">${currentUser.username}</p>
+                            <p class="text-[11px] font-bold text-green-400">${(currentUser.balance || 0).toLocaleString('vi-VN')} VNĐ</p>
+                        </div>
+                        <button onclick="logout()" class="p-2 text-gray-400 hover:text-white" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>`;
+            } else {
+                authArea.innerHTML = `<button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-bold rounded-xl border border-brand-cyan text-brand-cyan hover:bg-brand-cyan/10 transition-all">Đăng Nhập</button>`;
+            }
+        }
+
+        function openTopUpModal() {
+            if (!currentUser) { openAuthModal('login'); showNotification('Vui lòng đăng nhập trước khi nạp tiền!', 'error'); return; }
+            document.getElementById('topUpModal').classList.remove('hidden'); updateQRCode();
+        }
+        function closeTopUpModal() { document.getElementById('topUpModal').classList.add('hidden'); }
+
+        function switchTopUpMethod(method) {
+            const isBank = method === 'bank';
+            document.getElementById('bankTopUpArea').classList.toggle('hidden', !isBank);
+            document.getElementById('cardTopUpArea').classList.toggle('hidden', isBank);
+            document.getElementById('bankTopUpTab').className = isBank ? 'flex-1 py-2.5 font-bold text-xs border-b-2 border-brand-cyan text-brand-cyan flex items-center justify-center gap-1.5' : 'flex-1 py-2.5 font-bold text-xs text-gray-400 hover:text-white flex items-center justify-center gap-1.5';
+            document.getElementById('cardTopUpTab').className = !isBank ? 'flex-1 py-2.5 font-bold text-xs border-b-2 border-brand-cyan text-brand-cyan flex items-center justify-center gap-1.5' : 'flex-1 py-2.5 font-bold text-xs text-gray-400 hover:text-white flex items-center justify-center gap-1.5';
+        }
+
+        function updateQRCode() {
+            if (!currentUser) return;
+            const username = currentUser.username;
+            let amount = parseInt(document.getElementById('topupAmount').value);
+            if (isNaN(amount) || amount < 0) amount = 0;
+            const memo = `NAP SHOP ${username.toUpperCase()}`;
+            document.getElementById('qrMemo').innerText = memo;
+            const loader = document.getElementById('qrLoading');
+            loader.classList.remove('hidden');
+            const qrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.BANK_ID}-${BANK_CONFIG.ACCOUNT_NO}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(memo)}&accountName=${encodeURIComponent(BANK_CONFIG.ACCOUNT_NAME)}`;
+            const qrImg = document.getElementById('qrCodeImg');
+            qrImg.onload = () => loader.classList.add('hidden');
+            qrImg.src = qrUrl;
+        }
+
+        function confirmTopUp() {
+            if (!currentUser) return;
+            const amount = parseInt(document.getElementById('topupAmount').value);
+            if (!amount || amount < 10000) { showNotification('Số tiền nạp tối thiểu là 10.000 VNĐ!', 'error'); return; }
+            topUpRequests.unshift({
+                id: 'NAP' + Math.floor(100000 + Math.random() * 900000), type: 'BANK', username: currentUser.username,
+                amount: amount, memo: `NAP SHOP ${currentUser.username.toUpperCase()}`, status: 'Chờ duyệt', date: new Date().toLocaleString('vi-VN')
+            });
+            localStorage.setItem('blox_topup_requests', JSON.stringify(topUpRequests));
+            closeTopUpModal(); showNotification(`Đã gửi yêu cầu nạp ${amount.toLocaleString('vi-VN')} VNĐ!`, 'info'); switchSection('history');
+        }
+
+        function confirmCardTopUp() {
+            if (!currentUser) return;
+            const cardType = document.getElementById('cardType').value;
+            const cardValue = parseInt(document.getElementById('cardValue').value);
+            const cardPin = document.getElementById('cardPin').value.trim();
+            const cardSeri = document.getElementById('cardSeri').value.trim();
+            if (!cardPin || !cardSeri) { showNotification('Vui lòng điền đầy đủ Mã Thẻ và Số Seri!', 'error'); return; }
+            topUpRequests.unshift({
+                id: 'CARD' + Math.floor(100000 + Math.random() * 900000), type: 'CARD', username: currentUser.username,
+                cardType: cardType, amount: cardValue, cardPin: cardPin, cardSeri: cardSeri, status: 'Chờ duyệt', date: new Date().toLocaleString('vi-VN')
+            });
+            localStorage.setItem('blox_topup_requests', JSON.stringify(topUpRequests));
+            document.getElementById('cardPin').value = ''; document.getElementById('cardSeri').value = '';
+            closeTopUpModal(); showNotification(`Đã gửi thẻ ${cardType} ${cardValue.toLocaleString('vi-VN')} VNĐ!`, 'info'); switchSection('history');
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => { showNotification(`Đã sao chép: "${text}"`, 'info'); });
+        }
+
+        function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); switchAdminTab('bank'); }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            document.getElementById('adminBankTab').className = tab === 'bank' ? 'py-2 px-4 font-bold text-xs border-b-2 border-red-500 text-red-400' : 'py-2 px-4 font-bold text-xs text-gray-400 hover:text-white';
+            document.getElementById('adminCardTab').className = tab === 'card' ? 'py-2 px-4 font-bold text-xs border-b-2 border-red-500 text-red-400' : 'py-2 px-4 font-bold text-xs text-gray-400 hover:text-white';
+            renderAdminTopupList();
+        }
+
+        function renderAdminTopupList() {
+            const header = document.getElementById('adminTableHeader');
+            const tbody = document.getElementById('adminTopupTableBody');
+            if (currentAdminTab === 'bank') {
+                header.innerHTML = `<th class="p-3">Khách Hàng</th><th class="p-3">Số Tiền</th><th class="p-3">Nội Dung</th><th class="p-3">Trạng Thái</th><th class="p-3 text-center">Hành Động</th>`;
+                const bankReqs = topUpRequests.filter(r => r.type === 'BANK' || !r.type);
+                tbody.innerHTML = bankReqs.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-gray-500">Không có đơn nạp bank.</td></tr>` : bankReqs.map(req => `
+                    <tr class="border-b border-brand-cardBorder/50">
+                        <td class="p-3 font-bold text-white">${req.username}</td>
+                        <td class="p-3 text-brand-cyan font-extrabold">${req.amount.toLocaleString('vi-VN')} VNĐ</td>
+                        <td class="p-3 font-mono text-gray-300 text-[11px]">${req.memo}</td>
+                        <td class="p-3">${req.status === 'Chờ duyệt' ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-500/20 text-yellow-400">Đang xử lý</span>` : `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-500/20 text-green-400">Đã xong</span>`}</td>
+                        <td class="p-3 text-center">${req.status === 'Chờ duyệt' ? `<button onclick="approveTopUp('${req.id}')" class="px-2.5 py-1 bg-green-600 hover:bg-green-500 text-white font-bold rounded text-xs mr-1"><i class="fa-solid fa-check"></i> Duyệt</button><button onclick="rejectTopUp('${req.id}')" class="px-2 py-1 bg-red-600/30 hover:bg-red-600 text-red-300 font-bold rounded text-xs"><i class="fa-solid fa-xmark"></i></button>` : `<span class="text-gray-500 text-[11px]">Đã xử lý</span>`}</td>
+                    </tr>`).join('');
+            } else {
+                header.innerHTML = `<th class="p-3">Khách Hàng</th><th class="p-3">Loại / Mệnh Giá</th><th class="p-3">Mã Thẻ (PIN)</th><th class="p-3">Số Seri</th><th class="p-3 text-center">Hành Động</th>`;
+                const cardReqs = topUpRequests.filter(r => r.type === 'CARD');
+                tbody.innerHTML = cardReqs.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-gray-500">Không có thẻ cào chờ duyệt.</td></tr>` : cardReqs.map(req => `
+                    <tr class="border-b border-brand-cardBorder/50">
+                        <td class="p-3 font-bold text-white">${req.username}</td>
+                        <td class="p-3"><span class="font-bold text-brand-pink">${req.cardType}</span><br><span class="text-brand-cyan">${req.amount.toLocaleString('vi-VN')} VNĐ</span></td>
+                        <td class="p-3 font-mono text-yellow-300 font-bold">${req.cardPin}</td>
+                        <td class="p-3 font-mono text-gray-300">${req.cardSeri}</td>
+                        <td class="p-3 text-center">${req.status === 'Chờ duyệt' ? `<button onclick="approveTopUp('${req.id}')" class="px-2.5 py-1 bg-green-600 hover:bg-green-500 text-white font-bold rounded text-xs mr-1"><i class="fa-solid fa-check"></i> Duyệt Thẻ</button><button onclick="rejectTopUp('${req.id}')" class="px-2 py-1 bg-red-600/30 hover:bg-red-600 text-red-300 font-bold rounded text-xs">Thẻ Sai</button>` : `<span class="text-gray-500 text-[11px]">Đã xử lý</span>`}</td>
+                    </tr>`).join('');
+            }
+        }
+
+        function approveTopUp(reqId) {
+            const req = topUpRequests.find(r => r.id === reqId);
+            if (!req || req.status !== 'Chờ duyệt') return;
+            let usersList = JSON.parse(localStorage.getItem('blox_user_db')) || {};
+            if (!usersList[req.username]) return;
+            usersList[req.username].balance = (usersList[req.username].balance || 0) + req.amount;
+            localStorage.setItem('blox_user_db', JSON.stringify(usersList));
+            if (currentUser && currentUser.username === req.username) {
+                currentUser.balance = usersList[req.username].balance;
+                localStorage.setItem('blox_user', JSON.stringify(currentUser));
+                updateUserUI();
+            }
+            req.status = 'Đã cộng tiền';
+            localStorage.setItem('blox_topup_requests', JSON.stringify(topUpRequests));
+            renderAdminTopupList(); renderHistory();
+            showNotification(`Đã cộng ${req.amount.toLocaleString('vi-VN')} VNĐ cho ${req.username}!`, 'success');
+        }
+
+        function rejectTopUp(reqId) {
+            const req = topUpRequests.find(r => r.id === reqId);
+            if (!req) return;
+            req.status = 'Bị từ chối';
+            localStorage.setItem('blox_topup_requests', JSON.stringify(topUpRequests));
+            renderAdminTopupList(); renderHistory();
+            showNotification('Đã từ chối đơn này.', 'info');
+        }
+
+        function checkoutCart() {
+            if (!currentUser) { closeCartModal(); openAuthModal('login'); showNotification('Vui lòng đăng nhập!', 'error'); return; }
+            if (cart.length === 0) { showNotification('Giỏ hàng trống!', 'error'); return; }
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const rbxUser = document.getElementById('robloxUser').value.trim();
+            const rbxPass = document.getElementById('robloxPass').value.trim();
+            if (!rbxUser || !rbxPass) { showNotification('Nhập Tên & Mật khẩu Roblox!', 'error'); return; }
+            if ((currentUser.balance || 0) < total) { showNotification(`Số dư không đủ! Cần thêm ${(total - (currentUser.balance || 0)).toLocaleString('vi-VN')} VNĐ.`, 'error'); return; }
+
+            currentUser.balance -= total;
+            localStorage.setItem('blox_user', JSON.stringify(currentUser));
+            let usersList = JSON.parse(localStorage.getItem('blox_user_db')) || {};
+            usersList[currentUser.username] = currentUser;
+            localStorage.setItem('blox_user_db', JSON.stringify(usersList));
+
+            orders.unshift({
+                id: 'ORD' + Math.floor(100000 + Math.random() * 900000), user: currentUser.username,
+                items: cart.map(c => `${c.title} (x${c.qty})`).join(', '), rbxAcc: rbxUser, total: total, date: new Date().toLocaleString('vi-VN'), status: 'Đang xử lý'
+            });
+            localStorage.setItem('blox_orders', JSON.stringify(orders));
+
+            cart = []; saveCart(); updateUserUI(); renderHistory(); closeCartModal();
+            document.getElementById('robloxUser').value = ''; document.getElementById('robloxPass').value = '';
+            showNotification('Thanh toán thành công! Đơn đã gửi hệ thống.', 'success');
+        }
+
+        function renderHistory() {
+            const tableBody = document.getElementById('historyTableBody');
+            const topupTableBody = document.getElementById('topupHistoryTableBody');
+            if (!currentUser) return;
+            const userOrders = orders.filter(o => o.user === currentUser.username);
+            tableBody.innerHTML = userOrders.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-gray-500">Chưa có đơn cày thuê nào.</td></tr>` : userOrders.map(o => `
+                <tr class="border-b border-brand-cardBorder/50"><td class="p-4 font-mono font-bold text-brand-cyan">${o.id}</td><td class="p-4 font-medium">${o.items}</td><td class="p-4 font-mono text-gray-300">${o.rbxAcc}</td><td class="p-4 text-white font-bold">${o.total.toLocaleString('vi-VN')} VNĐ</td><td class="p-4 text-xs text-gray-400">${o.date}</td><td class="p-4"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">${o.status}</span></td></tr>`).join('');
+
+            const userTopups = topUpRequests.filter(r => r.username === currentUser.username);
+            topupTableBody.innerHTML = userTopups.length === 0 ? `<tr><td colspan="6" class="p-8 text-center text-gray-500">Chưa có lịch sử nạp.</td></tr>` : userTopups.map(r => `
+                <tr class="border-b border-brand-cardBorder/50"><td class="p-4 font-mono font-bold text-brand-cyan">${r.id}</td><td class="p-4 text-xs font-bold ${r.type === 'CARD' ? 'text-brand-pink' : 'text-blue-400'}">${r.type === 'CARD' ? 'Thẻ Cào' : 'Ngân Hàng'}</td><td class="p-4 text-white font-bold">${r.amount.toLocaleString('vi-VN')} VNĐ</td><td class="p-4 font-mono text-gray-300 text-xs">${r.type === 'CARD' ? `${r.cardType} (${r.cardSeri})` : r.memo}</td><td class="p-4 text-xs text-gray-400">${r.date}</td><td class="p-4">${r.status === 'Chờ duyệt' ? `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-500/10 text-yellow-400">Đang xử lý</span>` : (r.status === 'Đã cộng tiền' ? `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400">Thành công</span>` : `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-500/10 text-red-400">Từ chối</span>`)}</td></tr>`).join('');
+        }
+
+        function switchSection(section) {
+            document.getElementById('heroSection').classList.toggle('hidden', section === 'history');
+            document.getElementById('servicesSection').classList.toggle('hidden', section === 'history');
+            document.getElementById('historySection').classList.toggle('hidden', section !== 'history');
+            if (section === 'history') renderHistory();
+        }
+
+        function openAuthModal(tab) { document.getElementById('authModal').classList.remove('hidden'); toggleAuthTab(tab); }
+        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
+        function toggleAuthTab(tab) {
+            const isLogin = tab === 'login';
+            document.getElementById('loginForm').classList.toggle('hidden', !isLogin);
+            document.getElementById('registerForm').classList.toggle('hidden', isLogin);
+            document.getElementById('loginTabBtn').className = isLogin ? 'flex-1 py-3 font-bold text-sm border-b-2 border-brand-cyan text-brand-cyan' : 'flex-1 py-3 font-bold text-sm text-gray-400 hover:text-white';
+            document.getElementById('registerTabBtn').className = !isLogin ? 'flex-1 py-3 font-bold text-sm border-b-2 border-brand-cyan text-brand-cyan' : 'flex-1 py-3 font-bold text-sm text-gray-400 hover:text-white';
+        }
+
+        function openCartModal() { document.getElementById('cartModal').classList.remove('hidden'); }
+        function closeCartModal() { document.getElementById('cartModal').classList.add('hidden'); }
+
+        function showNotification(msg, type) {
+            const area = document.getElementById('notificationArea');
+            const bgClass = type === 'success' ? 'bg-green-500/20 border-green-500 text-green-400' : (type === 'error' ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-blue-500/20 border-blue-500 text-blue-400');
+            area.innerHTML = `<div class="p-4 rounded-xl border ${bgClass} font-semibold text-sm mb-6 flex items-center justify-between shadow-lg"><span>${msg}</span><button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button></div>`;
+            setTimeout(() => { area.innerHTML = ''; }, 5000);
+        }
+    </script>
+</body>
+</html>
